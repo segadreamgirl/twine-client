@@ -1,5 +1,7 @@
 import './unauthorized.css';
 import '../fonts/nephilm.woff'
+import { Login } from './Login';
+import { Register } from './Register'
 
 
 export const Unauthorized = () => {
@@ -14,17 +16,16 @@ export const Unauthorized = () => {
                 {document.getElementById("login-modal").style.display = "block"}
             }}>login</button>
             <div id="login-modal" className='modal'>
-                <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close"
+                <div className="modal-content">
+                <div className="modal-header">
+                    <span className="close"
                         onClick={()=>{
                             {document.getElementById("login-modal").style.display = "none"}
                         }}>&times;</span>
-                    <p>Some text in the Modal..</p>
+                    <p>Login</p>
                     </div>
-                    <div class="modal-body">
-                        <p>Some text in the Modal Body</p>
-                        <p>Some other text...</p>
+                    <div className="modal-body">
+                        <Login/>
                     </div>
                 </div>
             </div>
@@ -34,16 +35,16 @@ export const Unauthorized = () => {
         }}
         >register</button>
         <div id="reg-modal" className='modal'>
-                <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close"
+                <div className="modal-content">
+                <div className="modal-header">
+                    <span className="close"
                         onClick={()=>{
                             {document.getElementById("reg-modal").style.display = "none"}
                         }}>&times;</span>
-                    <p>Some text in the Modal..</p>
+                    <p className='nephilm-font-modal'>Register</p>
                     </div>
-                    <div class="modal-body">
-                        <p>did i do it right :3</p>
+                    <div className="modal-body">
+                        < Register />
                     </div>
                 </div>
             </div>
