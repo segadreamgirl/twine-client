@@ -1,6 +1,7 @@
 import { fetchIt } from '../auth/fetchit.js'
 import { useState, useEffect } from 'react'
 import './dashboard.css'
+import { Link } from 'react-router-dom'
 
 export const AllProjects = () => {
     let current_user = localStorage.getItem('twine_token')
@@ -20,12 +21,29 @@ export const AllProjects = () => {
     const createCard = () => {
        return projects.map(
             (project) =>{
-                let dept = project?.lead?.employee_account[0]?.department?.name
+                let employeeAccount = project?.lead?.employee_account[0]
+                let dept = employeeAccount?.department?.name
                 let theme = dept.replace(/\s+/g, '-').toLowerCase();
-                let idName = theme+ "-card"
+                let cardIdName = theme+ "-card"
+                let isLead = false
 
-                return <><section id={idName} className='project-card' key={project.id}>
-                    {project.title}
+                if(employeeAccount?.user?.id===current_user.id){
+                    isLead = true
+                }
+
+                return <><section id={cardIdName} className='project-card' key={project.id}>
+                    <div id={theme} className='project-info'>
+                        <h2><Link to={`/projects/${project.id}`}>{project.title}</Link></h2>
+                        <div>
+                            <p>Project lead by 
+                            {
+                                isLead 
+                                ? <b> you!</b>
+                                : <b> {employeeAccount?.user?.first_name[0]}. {employeeAccount?.user?.last_name}</b>
+                            }
+                            </p><img src={employeeAccount.profile_pic} /> 
+                            </div>
+                    </div>
                     </section>
                 </>
             }
@@ -37,13 +55,11 @@ export const AllProjects = () => {
         <div className='content-title'>
             All Current Projects
         </div>
-            <div className='content-box'>
                 <section className='project-box'>
                     {
                         createCard()
                     }
                 </section>
-            </div>
     </div>
     </>
 }

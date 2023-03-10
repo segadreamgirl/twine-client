@@ -1,0 +1,37 @@
+.ticket-container{
+    background-color: red;
+    width: 30%;
+    max-height: 100%;
+    border-radius: 20px;
+    overflow: auto;
+
+}
+
+.ticket {
+    margin:5%;
+    width:90%;
+    height: 200px;
+    background-color: rgba(255, 255, 255, .5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket .title{
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: black;
+    margin-bottom: 0;
+}
+
+.ticket .assignee{
+    font-weight: 200;
+    font-size: .9rem;
+}
+
+.ticket .flag{
+    width: 20%;
+    height: 10%;
+    border-radius: 15px;
+}

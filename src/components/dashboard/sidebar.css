@@ -45,6 +45,8 @@
     background-color: transparent;
     border: 0px;
     width: 100%;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.2rem;
 }
 
 .sidebar button:hover{
@@ -64,9 +66,4 @@
 .sidebar span {
     width: 50px;
     margin: 5%;
-}
-
-/*CLASSES FOR ALL DEPARTMENTS*/
-#human-resources b{
-    color: #0CA789;
 }
