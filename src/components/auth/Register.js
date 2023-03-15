@@ -7,7 +7,11 @@ export const Register = (props) => {
         last_name: "",
         email: "",
         password: "",
-        profile_pic: ""
+    })
+    const [employee, setEmployee] = useState({
+        user:0,
+        profile_pic:"",
+        department:0
     })
 
     let navigate = useNavigate()
@@ -45,6 +49,12 @@ export const Register = (props) => {
         setUser(copy)
     }
 
+    const updateEmployee = (evt) => {
+        const copy = {...user}
+        copy[evt.target.id] = evt.target.value
+        setUser(copy)
+    }
+
     return (
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={registerNewUser}>
@@ -74,7 +84,7 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                 <label htmlFor="profile_pic">Profile Pic</label>
-                    <input onChange={updateUser}
+                    <input onChange={updateEmployee}
                         type="profile_pic" id="profile_pic" className="form-control"
                         placeholder="profile pic url" required />
                 </fieldset>
