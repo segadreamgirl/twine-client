@@ -1,13 +1,49 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F3F6FD;
+  margin-left: 10rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+  /*ID FOR STYLING ALL DEPARTMENTS*/
+  #human-resources-card{
+    background-color: rgba(167, 232, 196, .5)
+  }
+
+  #human-resources b{
+        color: #0CA789;
+  }
+
+  #software-engineering-card{
+    background-color: rgba(172, 210, 255, .5)
+  }
+
+  #software-engineering b{
+    color: #2D9BF0;
+  }
+
+  #accounts-and-finance-card{
+    background-color: rgba(255, 250, 164, .5);
+  }
+
+  #accounts-and-finance b{
+    color: #FAC710;
+  }
+
+  #sales-and-marketing-card{
+    background-color: rgba(191, 167, 223, .5);
+  }
+
+  #sales-and-marketing b{
+    color: #652CB3;
+  }
+
+  #it-infrastructure-card{
+    background-color: rgba(225, 178, 178, .5);
+  }
+
+  #it-infrastructure b{
+    color: #FF0000;
+  }
