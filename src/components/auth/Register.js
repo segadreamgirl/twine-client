@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export const Register = (props) => {
+    let current_user=""
     const [user, setUser] = useState({
         first_name: "",
         last_name: "",
@@ -9,10 +10,22 @@ export const Register = (props) => {
         password: "",
     })
     const [employee, setEmployee] = useState({
-        user:0,
+        user_id:0,
         profile_pic:"",
-        department:0
+        department_id:0
     })
+    const [dept, setDept] = useState([])
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8000/departments`)
+            .then(res => res.json())
+                .then((res) => {
+                    setDept(res)
+                })
+        },
+        []
+    )
 
     let navigate = useNavigate()
 
@@ -35,11 +48,20 @@ export const Register = (props) => {
                         first_name: createdUser.first_name,
                         last_name: createdUser.last_name,
                         token: createdUser.token
-                      })
-                    );
-                    navigate("/")
-                    window.location.reload(false);
+                      }),
+                      current_user = {...employee},
+                      employee.user_id = createdUser.id,
+                      console.log(employee),
+                      fetch("http://localhost:8000/employees", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json"
+                      },
+                      body: JSON.stringify(employee)
+                  }))
                 }
+                navigate("/home")
+                window.location.reload(false);
             })
     }
 
@@ -50,9 +72,9 @@ export const Register = (props) => {
     }
 
     const updateEmployee = (evt) => {
-        const copy = {...user}
+        const copy = {...employee}
         copy[evt.target.id] = evt.target.value
-        setUser(copy)
+        setEmployee(copy)
     }
 
     return (
@@ -87,6 +109,26 @@ export const Register = (props) => {
                     <input onChange={updateEmployee}
                         type="profile_pic" id="profile_pic" className="form-control"
                         placeholder="profile pic url" required />
+                </fieldset>
+                <fieldset>
+                <label htmlFor="department">Department</label>
+                <select defaultValue={null}
+                                            onChange={(event) => {
+                                                const copy = { ...employee }
+                                                copy.department_id = parseInt(event.target.value)
+                                                setEmployee(copy)
+                                            }}
+                                        >
+                                            <option defaultValue="null">Department</option>
+                                            {
+                                            dept.map((dep) => {
+                                                return (
+                                                    <option key={dep.id} value={dep.id}>
+                                                        {dep.name}
+                                                    </option>
+                                                )
+                                            })}
+                 </select>
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
