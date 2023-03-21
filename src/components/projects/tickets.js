@@ -194,8 +194,6 @@ export const Tickets = ({project, status, dept, isLead}) =>{
             
             if(assigneeAcc[0]?.user?.id===current_user.id){
                 isAssigned = true
-                console.log(current_user.id)
-                console.log(assigneeAcc[0]?.user?.id)
             }
 
             return <>
