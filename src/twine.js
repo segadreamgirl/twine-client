@@ -13,7 +13,7 @@ function Twine() {
         element={
           <Authorized>
             <>
-            <SideBar />
+              <SideBar />
               <AppViews />
             </>
           </Authorized>

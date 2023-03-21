@@ -207,7 +207,7 @@ export const Tickets = ({project, status, dept, isLead}) =>{
             }}>{ticket.title}</p>
             <div className="assignee-info"><p className='assignee'>completed by 
             {
-                    isAssigned 
+                    assigneeAcc[0]?.user?.id===current_user.id
                     ? <b> you!</b>
                     : <b> {assigneeAcc[0].user.first_name[0]}. {assigneeAcc[0].user.last_name}</b>
             }

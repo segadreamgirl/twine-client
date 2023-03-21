@@ -37,7 +37,9 @@ export const SideBar = () => {
           navigate('/my-projects')
         }}>My Projects</button>
         </div>
-        <div><button> Inbox </button>
+        <div><button onClick={()=>{
+          navigate('/inbox')
+        }}> Inbox </button>
         </div>
         <div><button
         onClick={() => {
