@@ -10,6 +10,7 @@ export const AllProjects = () => {
     const [departments, setDepartments] = useState([])
     const [searchTerms, setSearchTerms] = useState(" ");
     const [filterDept, setFilterDept] = useState(0)
+    const [deptEmployees, setDeptEmployees] = useState([])
 
     useEffect(
         () => {
@@ -31,7 +32,25 @@ export const AllProjects = () => {
         []
     )
 
+    useEffect(
+        () => {
+            fetchIt(`http://localhost:8000/employees?department_id=${filterDept}`)
+                .then((data) => {
+                    setDeptEmployees(data)
+                })
+        },
+        [filterDept]
+    )
+
+    let employeeIdArray = []
+    deptEmployees.map(
+        (emp) => {
+            employeeIdArray.push(emp.id)
+        }
+    )
+
     const createCard = () => {
+    if(filterDept===0){
        return projects.map(
             (project) =>{
                 let employeeAccount = project?.lead?.employee_account[0]
@@ -61,11 +80,42 @@ export const AllProjects = () => {
                 </>
             }
         )
+    } else {
+        return projects.map(
+            (project) =>{
+        if(employeeIdArray.includes(project?.lead?.employee_account[0]?.id)){
+            let employeeAccount = project?.lead?.employee_account[0]
+                let dept = employeeAccount?.department?.name
+                let theme = dept.replace(/\s+/g, '-').toLowerCase();
+                let cardIdName = theme+ "-card"
+                let isLead = false
+
+                if(employeeAccount?.user?.id===current_user.id){
+                    isLead = true
+                }
+
+                return <><section id={cardIdName} className='project-card' key={project.id}>
+                    <div id={theme} className='project-info'>
+                        <h2><Link to={`/projects/${project.id}`}>{project.title}</Link></h2>
+                        <div>
+                            <p>Project lead by 
+                            {
+                                isLead 
+                                ? <b> you!</b>
+                                : <b> {employeeAccount?.user?.first_name[0]}. {employeeAccount?.user?.last_name}</b>
+                            }
+                            </p><img src={employeeAccount.profile_pic} /> 
+                            </div>
+                    </div>
+                    </section>
+                </>
+    }})
     }
+}
 
     const getDepartments = () =>{
         return departments.map((dept) => {
-            return <><option key={`dept--${dept.id}`} value={dept.id} onChange={(e)=>setFilterDept(e.target.value)}>
+            return <><option key={`dept--${dept.id}`} value={dept.id}>
                 {dept.name}
                 </option></>
             }
@@ -83,8 +133,9 @@ export const AllProjects = () => {
               />
               <select
                 className="filter"
+                onChange={(e)=>setFilterDept(e.target.value)}
               >
-                <option key={`dept--0`} value={0}>
+                <option key={`dept--0`} value={0} >
                   Filter
                 </option>
                 {
@@ -102,9 +153,9 @@ export const AllProjects = () => {
         <div className='content-title'>
             All Current Projects
         </div>
-        {
-            menuHTML()
-        }
+                {
+                    menuHTML()
+                }
                 <section className='project-box'>
                     {
                         createCard()
