@@ -166,7 +166,7 @@ export const Tickets = ({project, status, dept, isLead}) =>{
                 ? <div className="lead-options"><span onClick={()=>{document.getElementById(`edit--${ticket.id}`).style.display="block"}}>edit</span> <span onClick={()=>{ deleteTicket(ticket.id)}}>remove</span> <span onClick={()=>{reopenCloseTicket(ticket)}}>close</span></div>
                 : <div className="lead-options"></div>
             }{
-                assigneeAcc[0]?.user?.id===current_user.id
+                assigneeAcc[0]?.user?.id===current_user.id && isLead !== current_user.id
                 ?  <div className="lead-options"><span onClick={()=>{reopenCloseTicket(ticket)}}>close</span></div>
                 : <span></span>
         }

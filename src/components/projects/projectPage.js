@@ -70,11 +70,7 @@ export const ProjPage = () =>{
                     <div className="ticket-label"><label>Completed</label></div>
                     <Tickets project={project_id} status={"completed"} dept={deptName} isLead={lead_id}/>
                     </div>
-                </section>{
-                isLead
-                ?<button>archive project</button>
-                :<div></div>
-}
+                </section>
     </div>
     </>
     
