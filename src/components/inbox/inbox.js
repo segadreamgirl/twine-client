@@ -122,7 +122,6 @@ export const Inbox = () => {
         return names.map((name)=>{
             let dept = name?.department?.name
             let theme = dept.split(' ').join('-').toLowerCase()
-            console.log(theme)
 
             return<><div className="name-box" onClick={()=>{nameClicked(name)}} id={theme}><img src={name.profile_pic}/><b>{name?.user?.first_name} {name?.user?.last_name}</b> </div></>
         })

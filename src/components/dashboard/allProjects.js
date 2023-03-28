@@ -7,12 +7,25 @@ export const AllProjects = () => {
     let current_user = localStorage.getItem('twine_token')
         current_user = JSON.parse(current_user)
     const [projects, setProjects] = useState([])
+    const [departments, setDepartments] = useState([])
+    const [searchTerms, setSearchTerms] = useState(" ");
+    const [filterDept, setFilterDept] = useState(0)
 
     useEffect(
         () => {
             fetchIt(`http://localhost:8000/projects`)
                 .then((data) => {
                     setProjects(data)
+                })
+        },
+        []
+    )
+
+    useEffect(
+        () => {
+            fetchIt(`http://localhost:8000/departments`)
+                .then((data) => {
+                    setDepartments(data)
                 })
         },
         []
@@ -50,11 +63,48 @@ export const AllProjects = () => {
         )
     }
 
+    const getDepartments = () =>{
+        return departments.map((dept) => {
+            return <><option key={`dept--${dept.id}`} value={dept.id} onChange={(e)=>setFilterDept(e.target.value)}>
+                {dept.name}
+                </option></>
+            }
+        )
+    }
+
+
+    const menuHTML = () => {
+        return (
+        <div>
+              <label>Search Projects: </label>
+              <input
+                className="search"
+                placeholder="type search terms here"
+              />
+              <select
+                className="filter"
+              >
+                <option key={`dept--0`} value={0}>
+                  Filter
+                </option>
+                {
+                    getDepartments()
+                }{console.log(filterDept)}
+              </select>
+              <button>search</button>
+              <button>add project</button>
+            </div>
+        );
+      };
+
     return <>
     <div className='content-frame'>
         <div className='content-title'>
             All Current Projects
         </div>
+        {
+            menuHTML()
+        }
                 <section className='project-box'>
                     {
                         createCard()
